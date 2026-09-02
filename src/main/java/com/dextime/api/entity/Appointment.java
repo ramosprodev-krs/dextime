@@ -4,54 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 
-@Document(collection = "appointments")
+@Document(value = "appointments")
 public class Appointment {
-    @Id
+
+    @MongoId
     private String id;
 
-    // --- Relationships and Snapshots ---
-    @Indexed
-    private CustomerSnapshot customer;
+    private String details;
+    private Customer customer;
+    private Provider provider;
+    private Service service;
+    private LocalDateTime date;
 
-    @Indexed
-    private StoreSnapshot store;
-
-    @Indexed
-    private ProviderSnapshot provider;
-
-    // --- Service Details ---
-    private String serviceId;
-    private String serviceName;
-    private BigDecimal servicePrice;
-
-    // --- Appointment and Status ---
-    @Indexed
-    @Field("appointment_date")
-    private LocalDateTime appointmentDate;
-
-    @Field("status")
-    private AppointmentStatus appointmentStatus;
-
-    private String notes;
-
-    // --- Auditor Fields ---
-    @Indexed
-    @Field("created_at")
-    private LocalDateTime createdAt;
-
-    @Field("updated_at")
-    private LocalDateTime updatedAt;
 }
