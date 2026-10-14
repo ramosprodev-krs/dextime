@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+        .card { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .title { color: #1a202c; font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+        .details { background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 12px 16px; margin: 16px 0; }
+        .status { color: #1d4ed8; font-weight: bold; }
+        .footer { font-size: 12px; color: #718096; margin-top: 24px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title">Obrigado, <span th:text="${customerName}">Customer</span>!</div>
+    <p>Seu serviço foi marcado como <strong>concluído</strong>.</p>
+
+    <div class="details">
+        <p><strong>Loja:</strong> <span th:text="${storeName}">Store Name</span></p>
+        <p><strong>Procedimento:</strong> <span th:text="${procedureName}">Procedure</span></p>
+        <p><strong>Data e Hora:</strong> <span th:text="${appointmentDate}">Date</span></p>
+        <p><strong>Status:</strong> <span class="status">CONCLUÍDO</span></p>
+    </div>
+
+    <p>Obrigado por escolher o DexTime! Esperamos que tenha gostado da experiência.</p>
+
+    <div class="footer">
+        <p>Esta é uma mensagem automática do DexTime. Por favor, não responda a este e-mail.</p>
+    </div>
+</div>
+</body>
+</html>
