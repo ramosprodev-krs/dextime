@@ -1,6 +1,5 @@
 package com.dextime.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,19 +36,15 @@ public class Appointment {
      */
     @NotNull(message = "Customer is required")
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"stores", "password"})
     private UserEntity customer;
 
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"stores", "password"})
     private UserEntity provider;
 
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"store"})
     private Procedure procedure;
 
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"appointments", "procedures", "manager", "employees"})
     private Store store;
 
     /*

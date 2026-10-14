@@ -1,6 +1,5 @@
 package com.dextime.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -49,12 +48,10 @@ public class Procedure {
     /*
      * References
      */
-    @JsonIgnoreProperties({"procedures", "manager", "appointments", "employees"})
     @DocumentReference(lazy = true)
     private Store store;
 
     @DocumentReference
-    @JsonIgnoreProperties({"stores", "password", "appointments"})
     private UserEntity createdBy;
 
     /*

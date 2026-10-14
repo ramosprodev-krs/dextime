@@ -1,7 +1,7 @@
 package com.dextime.api.controller;
 
 import com.dextime.api.dto.UserDto;
-import com.dextime.api.entity.UserEntity;
+import com.dextime.api.dto.UserResponseDto;
 import com.dextime.api.service.ManagerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class ManagerController {
     }
 
     @PostMapping
-    public ResponseEntity<UserEntity> createManager(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<UserResponseDto> createManager(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(managerService.createManager(userDto));
     }
 }

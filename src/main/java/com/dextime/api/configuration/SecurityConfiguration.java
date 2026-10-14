@@ -1,10 +1,13 @@
 package com.dextime.api.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dextime.api.exception.ApiErrorResponse;
 import com.dextime.api.filter.SecurityFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -20,6 +23,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration
@@ -28,9 +32,10 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final SecurityFilter securityFilter;
-
-    public SecurityConfiguration(SecurityFilter securityFilter) {
+    private final ObjectMapper objectMapper;
+    public SecurityConfiguration(SecurityFilter securityFilter, ObjectMapper objectMapper) {
         this.securityFilter = securityFilter;
+        this.objectMapper = objectMapper;
     }
 
     @Bean
@@ -65,12 +70,24 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/customers").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/managers").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(handling -> handling
-                        .authenticationEntryPoint((request, response, authException) ->
-                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized.")
-                        )
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+                            ApiErrorResponse error = new ApiErrorResponse(
+                                    HttpServletResponse.SC_UNAUTHORIZED,
+                                    "Authentication failed: You must provide a valid credentials or token to access this resource.",
+                                    LocalDateTime.now()
+                            );
+
+                            response.getWriter().write(objectMapper.writeValueAsString(error));
+                        })
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 

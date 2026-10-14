@@ -1,6 +1,7 @@
 package com.dextime.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +37,7 @@ public class UserEntity implements UserDetails {
     private String username;
 
     @NotBlank(message = "Password is required")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotBlank(message = "First name is required")
@@ -67,15 +68,16 @@ public class UserEntity implements UserDetails {
      * References
      */
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"manager", "providers"})
     private List<Store> managedStores = new ArrayList<>();
 
     @DocumentReference(lazy = true)
-    @JsonIgnoreProperties({"providers", "manager"})
     private List<Store> providedStores = new ArrayList<>();
 
     @DocumentReference(lazy = true)
     private List<Appointment> appointments = new ArrayList<>();
+
+    @DocumentReference(lazy = true)
+    private List<Appointment> providedAppointments = new ArrayList<>();
 
     /*
      * Audit data

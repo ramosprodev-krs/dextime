@@ -1,7 +1,10 @@
 package com.dextime.api.service;
 
 import com.dextime.api.dto.UserPatchDto;
+import com.dextime.api.dto.UserResponseDto;
 import com.dextime.api.entity.UserEntity;
+import com.dextime.api.exception.EmailConflictException;
+import com.dextime.api.exception.UsernameConflictException;
 import com.dextime.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,15 +34,35 @@ public class UserService implements UserDetailsService {
      * Following CRUD operations for customers
      */
 
-
-    public UserEntity readUserByUsername(String username) {
-        return userRepository.findByUsername(username)
+    public UserResponseDto readUserByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE + username));
+
+        return new UserResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getCpf(),
+                user.getRole(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
     }
 
-    public UserEntity updateUser(String username, UserPatchDto userPatchDto) {
+    public UserResponseDto updateUser(String username, UserPatchDto userPatchDto) {
         UserEntity user = userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE + username));
+
+        if (Boolean.TRUE.equals(userRepository.existsByUsername(userPatchDto.getUsername()))) {
+            throw new UsernameConflictException("Username already exists");
+        }
+
+        if (Boolean.TRUE.equals(userRepository.existsByEmail(userPatchDto.getEmail()))) {
+            throw new EmailConflictException("Email already exists");
+        }
 
         if (userPatchDto.getUsername() != null) {
             user.setUsername(userPatchDto.getUsername());
@@ -54,7 +77,20 @@ public class UserService implements UserDetailsService {
             user.setPhoneNumber(userPatchDto.getPhoneNumber());
         }
 
-        return userRepository.save(user);
+        UserEntity savedUser = userRepository.save(user);
+
+        return new UserResponseDto(
+                savedUser.getId(),
+                savedUser.getUsername(),
+                savedUser.getFirstName(),
+                savedUser.getLastName(),
+                savedUser.getEmail(),
+                savedUser.getPhoneNumber(),
+                savedUser.getCpf(),
+                savedUser.getRole(),
+                savedUser.getCreatedAt(),
+                savedUser.getUpdatedAt()
+        );
     }
 
     public void deleteUser(String username) {

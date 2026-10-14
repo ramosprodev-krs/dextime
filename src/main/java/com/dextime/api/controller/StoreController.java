@@ -1,8 +1,8 @@
 package com.dextime.api.controller;
 
 import com.dextime.api.dto.StoreDto;
-import com.dextime.api.entity.Appointment;
-import com.dextime.api.entity.Store;
+
+import com.dextime.api.dto.StoreResponseDto;
 import com.dextime.api.service.StoreService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,32 +26,23 @@ public class StoreController {
 
     @PreAuthorize("hasAuthority('MANAGER')")
     @PostMapping
-    public ResponseEntity<Store> createStore(
+    public ResponseEntity<StoreResponseDto> createStore(
             @AuthenticationPrincipal UserDetails userDetails,
-            @Valid @RequestBody StoreDto storeDto) {
+            @RequestBody @Valid StoreDto storeDto) {
 
         String username = userDetails.getUsername();
         return ResponseEntity.status(HttpStatus.CREATED).body(storeService.createStore(username, storeDto));
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
-    @GetMapping("/{storeId}/appointments")
-    public ResponseEntity<List<Appointment>> readAppointmentsByStoreId(
-            @AuthenticationPrincipal UserDetails userDetails,
-            @PathVariable String storeId) {
-
-        return ResponseEntity.ok(storeService.readAppointmentsByStore(userDetails.getUsername(), storeId));
-    }
-
     @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('CUSTOMER')")
     @GetMapping("/{storeId}")
-    public ResponseEntity<Store> readStoreById(@PathVariable String storeId) {
+    public ResponseEntity<StoreResponseDto> readStoreById(@PathVariable String storeId) {
         return ResponseEntity.ok(storeService.readStoreById(storeId));
     }
 
-    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('MANAGER', 'CUSTOMER', 'PROVIDER')")
     @GetMapping
-    public ResponseEntity<List<Store>> readAllStores() {
+    public ResponseEntity<List<StoreResponseDto>> readAllStores() {
         return ResponseEntity.ok(storeService.readAllStores());
     }
 }

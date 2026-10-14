@@ -1,8 +1,9 @@
 package com.dextime.api.controller;
 
 import com.dextime.api.dto.UserDto;
-import com.dextime.api.entity.UserEntity;
+import com.dextime.api.dto.UserResponseDto;
 import com.dextime.api.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class CustomerController {
      */
 
     @PostMapping
-    public ResponseEntity<UserEntity> createCustomer(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserResponseDto> createCustomer(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.ok(customerService.createCustomer(userDto));
     }
 

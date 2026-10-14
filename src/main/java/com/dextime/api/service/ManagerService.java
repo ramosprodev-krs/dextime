@@ -1,11 +1,10 @@
 package com.dextime.api.service;
 
 import com.dextime.api.dto.UserDto;
-import com.dextime.api.entity.Store;
+import com.dextime.api.dto.UserResponseDto;
 import com.dextime.api.entity.UserEntity;
 import com.dextime.api.entity.UserRole;
 import com.dextime.api.exception.*;
-import com.dextime.api.repository.StoreRepository;
 import com.dextime.api.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,17 +16,15 @@ import java.time.LocalDateTime;
 public class ManagerService {
 
     private final UserRepository userRepository;
-    private final StoreRepository storeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ManagerService(UserRepository userRepository, StoreRepository storeRepository, PasswordEncoder passwordEncoder) {
+    public ManagerService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.storeRepository = storeRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
-    public UserEntity createManager(UserDto userDto) {
+    public UserResponseDto createManager(UserDto userDto) {
         LocalDateTime now = LocalDateTime.now();
 
         if (Boolean.TRUE.equals(userRepository.existsByUsername(userDto.getUsername()))) {
@@ -51,9 +48,23 @@ public class ManagerService {
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setCpf(userDto.getCpf());
         user.setCreatedAt(now);
+        user.setUpdatedAt(now);
         user.setRole(UserRole.MANAGER);
 
-        return userRepository.save(user);
+        UserEntity savedManager = userRepository.save(user);
+
+        return new UserResponseDto(
+                savedManager.getId(),
+                savedManager.getUsername(),
+                savedManager.getFirstName(),
+                savedManager.getLastName(),
+                savedManager.getEmail(),
+                savedManager.getPhoneNumber(),
+                savedManager.getCpf(),
+                savedManager.getRole(),
+                savedManager.getCreatedAt(),
+                savedManager.getUpdatedAt()
+        );
     }
 
 }

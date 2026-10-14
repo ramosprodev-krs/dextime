@@ -1,6 +1,7 @@
 package com.dextime.api.service;
 
 import com.dextime.api.dto.UserDto;
+import com.dextime.api.dto.UserResponseDto;
 import com.dextime.api.entity.*;
 import com.dextime.api.exception.*;
 import com.dextime.api.repository.UserRepository;
@@ -25,7 +26,7 @@ public class CustomerService {
      * Following operations for customers
      */
 
-    public UserEntity createCustomer(UserDto userDto) {
+    public UserResponseDto createCustomer(UserDto userDto) {
         LocalDateTime now = LocalDateTime.now();
 
         if (Boolean.TRUE.equals(userRepository.existsByUsername(userDto.getUsername()))) {
@@ -52,7 +53,21 @@ public class CustomerService {
         customer.setUpdatedAt(now);
         customer.setRole(UserRole.CUSTOMER);
 
-        return userRepository.save(customer);
+        UserEntity savedCustomer = userRepository.save(customer);
+
+        return new UserResponseDto(
+                savedCustomer.getId(),
+                savedCustomer.getUsername(),
+                savedCustomer.getFirstName(),
+                savedCustomer.getLastName(),
+                savedCustomer.getEmail(),
+                savedCustomer.getPhoneNumber(),
+                savedCustomer.getCpf(),
+                savedCustomer.getRole(),
+                savedCustomer.getCreatedAt(),
+                savedCustomer.getUpdatedAt()
+        );
+
     }
 
 }
