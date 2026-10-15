@@ -42,7 +42,11 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(List.of("http://*", "https://*"));
+        configuration.setAllowedOrigins(List.of(
+                "https://dextime-app-d9e25.web.app",
+                "http://localhost:5173",
+                "http://localhost:3000"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
