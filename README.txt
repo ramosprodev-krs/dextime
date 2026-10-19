@@ -1,20 +1,22 @@
 <div align="center">
 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" width=200> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <br> <h1 align="center">DexTime UI</h1> <br> |
-| :--- |
+<img src="assets/dextime-logo.svg" width="420" alt="DexTime logo">
+
+<h1>DexTime UI</h1>
 
 **A web application for discovering services, scheduling appointments, and managing service providers.**
 
 </div>
 
 ---
+
 **Project Start Date: October 2026**
 
 DexTime UI is the frontend for the DexTime appointment scheduling platform. Customers can browse establishments and services, request appointments, and manage their bookings. Managers can manage establishments, services, and providers, while providers can claim and complete appointments at their assigned establishments.
 
 The application is built with **React 19**, **TypeScript**, and **Vite**. It communicates with the DexTime REST API and provides role-specific customer, manager, and provider experiences. The interface is in Brazilian Portuguese.
 
-### Technologies used:
+### Technologies Used
 - React 19
 - TypeScript
 - Vite
@@ -31,6 +33,7 @@ The application is built with **React 19**, **TypeScript**, and **Vite**. It com
 - 🔐 [Authentication](#-authentication)
 - 🔌 [API Integration](#-api-integration)
 - 🌐 [Deployment](#-deployment)
+- 📩 [Contact](#-contact)
 
 ---
 
@@ -89,7 +92,7 @@ npm run lint      # Run ESLint
 - Sign in to the provider panel
 - View establishments they are associated with
 - Browse available appointments and claim one
-- View their assigned appointments and mark confirmed appointments complete
+- View their assigned appointments and mark confirmed appointments as complete
 
 ---
 
@@ -100,7 +103,7 @@ The application signs users in through the API and uses JWTs for authenticated r
 - **Manager**: Manage establishments, services, providers, and appointments
 - **Provider**: Claim and complete appointments at assigned establishments
 
-Sessions are stored in the browser's local storage. Expired or unauthorized sessions are cleared and require the user to sign in again.
+Sessions are stored in the browser's local storage. Expired or unauthorized sessions are cleared, and the user must sign in again.
 
 ---
 
@@ -156,5 +159,5 @@ The build output is written to `dist/`. Firebase Hosting configuration is includ
 
 If you liked this project or would like to share feedback, get in touch:
 - Instagram: [@kal.rs2](https://www.instagram.com/kal.rs2/)
-- LinkedIn: [www.linkedin.com/in/ramosprodev](https://www.linkedin.com/in/ramosprodev)
+- LinkedIn: [linkedin.com/in/ramosprodev](https://www.linkedin.com/in/ramosprodev)
 - Email: [ramosprodev@gmail.com](mailto:ramosprodev@gmail.com)
