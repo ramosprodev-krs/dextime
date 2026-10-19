@@ -1,11 +1,11 @@
 <div align="center">
-  
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" width=200> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <br> <h1 align="center">DexTime API </h1> <br> |
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/user-attachments/assets/a9da25a6-9677-4cf1-a4d6-35e6f9477cc8" alt="dextime-icon" width="200" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <br> <h1 align="center">DexTime UI</h1> <br> |
 | :--- | :--- |
 
-**A comprehensive appointment scheduling API with automated email notifications.**
+**A web application for discovering services, scheduling appointments, and managing service providers.**
 
-</div>  
+</div>
 
 ---
 **Project Start Date: October 2026**  
