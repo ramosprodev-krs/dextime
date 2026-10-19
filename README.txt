@@ -1,8 +1,7 @@
 <div align="center">
 
-<img src="assets/dextime-logo.svg" width="420" alt="DexTime logo">
-
-<h1>DexTime UI</h1>
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" width=200> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | <br> <h1 align="center">DexTime UI</h1> <br> |
+| :--- | :--- |
 
 **A web application for discovering services, scheduling appointments, and managing service providers.**
 
